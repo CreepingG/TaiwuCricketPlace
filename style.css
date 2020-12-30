@@ -1,0 +1,1184 @@
+@font-face {
+    font-family: Sansation;
+    src: url(https://fs.huijiwiki.com/www/resources/font/Sansation_Regular.ttf)
+}
+
+.huiji-tt-cache {
+    position: fixed;
+    z-index: 999
+}
+
+.tt-card {
+    color: #fff;
+    background: #1d222f;
+    width: 369px;
+    display: inline-block;
+    margin-right: 4px;
+    vertical-align: top;
+    border: 2px solid #000
+}
+
+.tt-icon {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    vertical-align: top
+}
+
+.tt-info {
+    display: inline-block;
+    width: 296px;
+    padding: 0 12px
+}
+
+.tt-title {
+    width: 365px;
+    background: #222;
+    display: inline-block;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 12px
+}
+
+.tt-name {
+    text-shadow: 1px 1px 2px #333
+}
+
+.tt-body {
+    width: 365px
+}
+
+.tt-body-left {
+    display: inline-block;
+    width: 280px;
+    border-right: 1px solid black
+}
+
+.tt-body-right {
+    display: inline-block;
+    vertical-align: top;
+    width: 84px
+}
+
+.tt-cat-tier {
+    float: right
+}
+
+.tt-cat-tier,
+.tt-cat {
+    font-size: 12px;
+    font-weight: normal;
+    text-shadow: 0px 0px 1px #000
+}
+
+.tt-tier6 {
+    background-color: #ceae33
+}
+
+.tt-tier5 {
+    background-color: #522f65
+}
+
+.tt-tier4 {
+    background-color: #5076a3
+}
+
+.tt-tier3 {
+    background-color: #366f3c
+}
+
+.tt-tier2 {
+    background-color: #484848
+}
+
+.kineticDmg {
+    color: white
+}
+
+.voidDmg {
+    color: #C690DC
+}
+
+.solarDmg {
+    color: #F1631E
+}
+
+.arcDmg {
+    color: #79BBE8
+}
+
+.tt-level-img {
+    display: inline-block;
+    height: 40px
+}
+
+.tt-level-text {
+    display: inline-block;
+    vertical-align: top;
+    height: 40px
+}
+
+.tt-level-number {
+    font-size: 25px;
+    font-weight: bold;
+    font-family: Sansation;
+    height: 30px
+}
+
+.tt-level-type {
+    padding: 8px 8px 2px 8px
+}
+
+.tt-level-description {
+    font-size: 12px;
+    padding-left: 2px;
+    margin-top: -2px
+}
+
+.tt-ammo-type {
+    display: inline-block;
+    padding: 6px 12px;
+    border-left: 1px solid #525151;
+    margin-left: 12px;
+    vertical-align: top;
+    height: 40px
+}
+
+.tt-desc {
+    padding: 8px 12px;
+    font-size: 14px;
+    color: #eee;
+    word-break: break-all
+}
+
+.tt-data {
+    font-size: 12px;
+    padding: 6px 0px;
+    border-top: 1px solid #eee;
+    margin: 4px 12px
+}
+
+.tt-stats-label {
+    display: inline-block;
+    width: 100px;
+    vertical-align: top
+}
+
+.tt-stats-barwrapper {
+    position: relative;
+    display: inline-block;
+    width: 155px;
+    background-color: #111
+}
+
+.tt-stats-bar {
+    height: 16px;
+    float: left
+}
+
+.tt-stats-barfill {
+    background: #2a4b8d;
+    height: 100%;
+    animation-name: barfill;
+    animation-duration: 0.75s;
+    animation-timing-function: linear;
+    animation-delay: 0s;
+    animation-iteration-count: 1
+}
+
+.tt-stats-value {
+    position: absolute;
+    left: 4px;
+    font-family: Sansation;
+    text-shadow: 0px 0px 1px #000
+}
+
+@keyframes barfill {
+    0% {
+        width: 0%
+    }
+
+    25% {
+        width: 25%
+    }
+
+    50% {
+        width: 40%
+    }
+
+    75% {
+        width: 60%
+    }
+
+    100% {
+        width: 100%
+    }
+}
+
+@keyframes title {
+    0% {}
+
+    25% {}
+
+    50% {}
+
+    75% {}
+
+    100% {}
+}
+
+.tt-socket-title {
+    font-weight: bold;
+    font-size: 14px;
+    background: #111;
+    padding: 4px 8px
+}
+
+.tt-socket-item {
+    font-size: 12px;
+    width: 70px;
+    display: inline-block;
+    vertical-align: top;
+    overflow: hidden;
+    text-align: center;
+    margin: 4px 2px;
+    background: #3c4254
+}
+
+.tt-socket-group {
+    text-align: center;
+    padding: 4px 0px
+}
+
+.tt-socket-name {
+    font-weight: bold;
+    text-shadow: 0px 0px 1px #000
+}
+
+.tt-socket-text {
+    font-weight: bold;
+    text-shadow: 0px 0px 1px #000;
+    background: #111111
+}
+
+.tt-socket-type {
+    color: #cecece;
+    text-align: center
+}
+
+.tt-socket-icon {
+    padding: 6px 0px 2px 0px;
+    box-shadow: 1px 1px 1px #000
+}
+
+.tt-socket-item-left {
+    width: 40px;
+    display: inline-block;
+    vertical-align: top
+}
+
+.tt-socket-item-right {
+    width: 135px;
+    display: inline-block;
+    vertical-align: top
+}
+
+.tt-perk-item {
+    width: 350px;
+    display: inline-block;
+    vertical-align: top;
+    margin: 4px;
+    font-size: 12px;
+    background: #3c4254;
+    border-radius: 2px
+}
+
+.tt-perk-item-left {
+    width: 70px;
+    display: inline-block;
+    vertical-align: text-top;
+    padding: 8px;
+    text-align: left
+}
+
+.tt-perk-item-right {
+    width: 280px;
+    display: inline-block;
+    vertical-align: text-top;
+    padding: 0px
+}
+
+.tt-perk-icon {
+    text-align: center
+}
+
+.tt-perk-name {
+    background: #111;
+    font-weight: bold;
+    text-align: left;
+    padding-left: 6px
+}
+
+.tt-perk-type {
+    margin-right: 1em
+}
+
+.tt-perk-desc {
+    padding: 2px 6px;
+    text-align: left;
+    font-size: 12px;
+    color: #9aa6c5
+}
+
+.tt-gearset-title {
+    text-align: center;
+    background: #111;
+    padding: 4px;
+    font-size: 14px
+}
+
+.tt-gearset-block {
+    text-align: center
+}
+
+.tt-item-block {
+    margin: 5px;
+    background: #384054
+}
+
+.tt-item-title {
+    display: inline-block;
+    font-size: 14px;
+    width: 65px;
+    padding: 0px 0px 0px 4px;
+    vertical-align: top;
+    text-align: left
+}
+
+.tt-gearset-scrollBlock {
+    max-height: 400px;
+    overflow-y: scroll
+}
+
+.tt-gearset-scrollBlock::-webkit-scrollbar {
+    width: 12px;
+    background-color: #1d222f
+}
+
+.tt-gearset-scrollBlock::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+    background-color: #6a6f7b
+}
+
+.vendor-wrapper {
+    text-align: center;
+    font-size: 14px;
+    margin: 6px
+}
+
+.obj-value {
+    text-align: center;
+    border: 1px solid #000000;
+    font-size: 14px;
+    margin: 6px 6px;
+    padding: 4px;
+    background: #101627
+}
+
+.mw-jsonconfig {
+    color: #333
+}
+
+.page-left {
+    width: 300px;
+    background: #1d222f;
+    box-shadow: 0px 0px 3px #000;
+    display: inline-block;
+    vertical-align: top
+}
+
+.page-right {
+    display: inline-block;
+    width: 400px;
+    background: #1d222f;
+    box-shadow: 0px 0px 3px #000
+}
+
+.page-name {
+    text-shadow: 1px 1px 2px #333
+}
+
+.page-title {
+    width: 300px;
+    background: #222;
+    display: inline-block;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 12px
+}
+
+.page-tier6 {
+    background-color: #ceae33
+}
+
+.page-tier5 {
+    background-color: #522f65
+}
+
+.page-tier4 {
+    background-color: #5076a3
+}
+
+.page-tier3 {
+    background-color: #366f3c
+}
+
+.page-tier2 {
+    background-color: #484848
+}
+
+.page-icon {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    vertical-align: top
+}
+
+.page-info {
+    display: inline-block;
+    width: 231px;
+    padding: 0 12px
+}
+
+.page-cat {
+    font-size: 12px;
+    font-weight: normal;
+    text-shadow: 0px 0px 1px #000
+}
+
+.kineticDmg {
+    color: white
+}
+
+.voidDmg {
+    color: #C690DC
+}
+
+.solarDmg {
+    color: #F1631E
+}
+
+.arcDmg {
+    color: #79BBE8
+}
+
+.page-level-img {
+    display: inline-block;
+    height: 40px
+}
+
+.page-level-text {
+    display: inline-block;
+    vertical-align: top;
+    height: 40px
+}
+
+.page-level-number {
+    font-size: 25px;
+    font-weight: bold;
+    font-family: Sansation;
+    height: 30px
+}
+
+.page-level-type {
+    padding: 8px 8px 2px 8px
+}
+
+.page-level-description {
+    font-size: 12px;
+    padding-left: 2px;
+    margin-top: -2px
+}
+
+.page-ammo-type {
+    display: inline-block;
+    padding: 6px 12px;
+    border-left: 1px solid #525151;
+    margin-left: 12px;
+    vertical-align: top;
+    height: 40px
+}
+
+.page-desc {
+    padding: 8px 12px;
+    font-size: 14px;
+    color: #eee;
+    word-break: break-all
+}
+
+.page-data {
+    font-size: 12px;
+    padding: 6px 0px;
+    border-top: 1px solid #eee;
+    margin: 4px 12px
+}
+
+.page-stats-label {
+    display: inline-block;
+    width: 100px;
+    vertical-align: top;
+    text-decoration-style: dotted;
+    text-decoration-color: #cecece;
+    text-decoration-line: underline
+}
+
+.page-stats-barwrapper {
+    position: relative;
+    display: inline-block;
+    width: 175px;
+    background-color: #111
+}
+
+.page-stats-bar {
+    height: 16px;
+    float: left
+}
+
+.page-stats-barfill {
+    background: #2a4b8d;
+    height: 100%;
+    animation-name: barfill;
+    animation-duration: 0.75s;
+    animation-timing-function: linear;
+    animation-delay: 0s;
+    animation-iteration-count: 1
+}
+
+.page-stats-value {
+    position: absolute;
+    left: 4px;
+    font-family: Sansation;
+    text-shadow: 0px 0px 1px #000
+}
+
+@keyframes barfill {
+    0% {
+        width: 0%
+    }
+
+    25% {
+        width: 25%
+    }
+
+    50% {
+        width: 40%
+    }
+
+    75% {
+        width: 60%
+    }
+
+    100% {
+        width: 100%
+    }
+}
+
+@keyframes title {
+    0% {}
+
+    25% {}
+
+    50% {}
+
+    75% {}
+
+    100% {}
+}
+
+.page-socket-title {
+    background: #111;
+    padding: 4px 6px;
+    font-weight: bold
+}
+
+.page-socket-group {
+    padding: 0px 6px;
+    height: 300px;
+    overflow-y: scroll
+}
+
+.page-socket-group::-webkit-scrollbar {
+    width: 12px;
+    background-color: #1d222f
+}
+
+.page-socket-group::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+    background-color: #6a6f7b
+}
+
+.page-perk-item {
+    margin: 6px 0px;
+    background: #363f56
+}
+
+.page-perk-item-left {
+    width: 60px;
+    display: inline-block;
+    vertical-align: top
+}
+
+.page-perk-item-right {
+    display: inline-block;
+    vertical-align: top;
+    width: 308px;
+    font-size: 14px;
+    padding-left: 6px
+}
+
+.page-perk-text {
+    font-weight: bold
+}
+
+.page-perk-desc {
+    padding: 4px;
+    font-size: 12px;
+    color: #9aa6c5
+}
+
+.page-perk-type {
+    margin-right: .5em;
+    color: #aaa
+}
+
+.page-perk-icon {
+    box-shadow: 1px 1px 1px #000
+}
+
+.page-text {
+    padding: 8px;
+    font-size: 12px
+}
+
+.page-vendor-title {
+    font-size: 12px;
+    background: #2a4b8d
+}
+
+.page-vendor-image {
+    display: inline-block;
+    vertical-align: top
+}
+
+.page-vendor-info {
+    vertical-align: text-top;
+    display: inline-block;
+    width: 150px
+}
+
+.page-vendor-item {
+    background: #444b5a;
+    margin: 2px;
+    text-align: center;
+    font-size: 12px;
+    width: 80px;
+    vertical-align: top
+}
+
+.page-item-cell {
+    background: #111;
+    padding: 4px
+}
+
+.page-class-wrapper {
+    background: #333;
+    padding: 6px;
+    font-size: 14px;
+    text-align: center
+}
+
+.page-class-image {
+    width: 150px;
+    display: inline-block;
+    vertical-align: top
+}
+
+.page-class-icon {
+    display: inline-block;
+    width: 60px;
+    vertical-align: top
+}
+
+.page-node-desc {
+    padding: 6px 6px;
+    color: #d8d8d8;
+    background: #333
+}
+
+.page-node-icon {
+    text-align: center;
+    padding: 8px;
+    width: 76px;
+    margin: 38px auto;
+    transform: rotate(45deg)
+}
+
+.page-node-icon>img {
+    transform: rotate(-45deg)
+}
+
+.page-node-title {
+    padding: 6px;
+    font-weight: bold;
+    text-align: center
+}
+
+.page-node-cell {
+    padding: 6px 8px;
+    display: inline-block;
+    vertical-align: top;
+    width: 300px;
+    margin: 6px 6px 0px 0px;
+    background: #222
+}
+
+.page-nodeCategory-title {
+    font-size: 16px;
+    font-weight: bolder;
+    text-align: center;
+    background: #000
+}
+
+.page-nodeCategory-wrapper {
+    padding: 6px 6px 0px 6px;
+    background: #111
+}
+
+.page-class-info {
+    display: inline-block;
+}
+
+.page-class-group {
+    display: inline-block
+}
+
+.page-class-desc {
+    padding: 4px 6px;
+    color: #ccc
+}
+
+.page-class-title {
+    font-size: 16px;
+    font-weight: bold;
+    background: #111;
+    padding: 8px
+}
+
+.page-class-image {
+    width: 150px;
+    display: inline-block;
+    vertical-align: top
+}
+
+.page-class-wrapper {
+    background: #333;
+    padding: 6px;
+    font-size: 14px
+}
+
+.arc_hunter,
+.arc_warlock,
+.arc_titan {
+    background: #1676ad
+}
+
+.thermal_hunter,
+.thermal_warlock,
+.thermal_titan {
+    background: #ca5c10
+}
+
+.void_hunter,
+.void_warlock,
+.void_titan {
+    background: #4e3188
+}
+
+.Super {
+    border: 2px solid #f0ad4e
+}
+
+.lore-wrapper {
+    padding: 16px;
+    background: #000000;
+    border-radius: 6px;
+}
+
+.lore-title {
+    font-size: 20px;
+    font-family: 楷体;
+    font-weight: bold
+}
+
+.lore-desc {
+    text-align: center;
+    font-family: 楷体;
+    font-size: 18px
+}
+
+.place-block {
+    background: #111;
+    padding: 6px;
+    margin: 6px 0px
+}
+
+.place-title {
+    background: #000;
+    padding: 4px 6px;
+    font-size: 16px;
+    font-weight: bold
+}
+
+.place-desc {
+    padding: 6px;
+    font-size: 14px
+}
+
+.destination-block {
+    padding: 12px;
+    background: #222
+}
+
+.destination-title {
+    background: #111;
+    padding: 4px 8px
+}
+
+.destination-desc {
+    padding: 12px 12px;
+    font-size: 12px;
+    background: #444
+}
+
+.activity-text {
+    background: #333;
+    margin: 2px 0px;
+    text-align: center
+}
+
+.activity-dsec {
+    padding: 6px;
+    background: #222
+}
+
+.activity-name {
+    display: inline-block
+}
+
+.activity-icon {
+    width: 40px;
+    display: inline-block;
+    vertical-align: top
+}
+
+.activity-name {
+    display: inline-block
+}
+
+.activity-title {
+    font-size: 16px;
+    font-weight: bold;
+    background: #000000;
+    padding: 4px
+}
+
+.activity-block {
+    width: 300px;
+    background: #111
+}
+
+.node-text {
+    padding: 6px
+}
+
+.node-title {
+    background: #111;
+    padding: 4px
+}
+
+.activity-group-title {
+    background: #000;
+    padding: 6px;
+    font-size: 16px;
+    font-weight: bold
+}
+
+.activity-item {
+    display: inline-block;
+    width: 120px;
+    vertical-align: top;
+    margin: 4px
+}
+
+.activity-item-icon {
+    width: 120px;
+    height: 70px;
+    background: #000000
+}
+
+.activity-item-title {
+    font-size: 12px;
+    background: #000;
+    padding: 2px;
+    width: 120px
+}
+
+.activity-group {
+    background: #131313;
+    margin: 12px 0px
+}
+
+.hs_title {
+    background: #000;
+    padding: 2px 3px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px
+}
+
+.hs_header {
+    background: rgb(7, 27, 65);
+    padding: 2px 3px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px
+}
+
+.hs_text {
+    padding: 3px
+}
+
+.hs_block {
+    padding: 3px;
+    background: #2a446b87;
+    border: 1px solid #080808;
+    font-size: 14px;
+    text-align: center
+}
+
+.hs_inline {
+    display: inline-block;
+    vertical-align: top
+}
+
+.hs_bubble {
+    margin: 4px;
+    font-size: 12px
+}
+
+.hs_wrapper {
+    padding: 6px 0px 0px 0px
+}
+
+.hs_number {
+    font-family: Sansation
+}
+
+.text6 {
+    color: #ceae33
+}
+
+.text5 {
+    color: #a85fd0
+}
+
+.text4 {
+    color: #3f71af
+}
+
+.text3 {
+    color: #9bf64c
+}
+
+.text2 {
+    color: #9a9a9a
+}
+
+.text-shadow {
+    text-shadow: 1px 1px 2px #000
+}
+
+.text-left {
+    text-align: left !important
+}
+
+.scroll-block::-webkit-scrollbar {
+    width: 12px;
+    background-color: #1d222f
+}
+
+.scroll-block::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+    background-color: #6a6f7b
+}
+
+.scroll-block {
+    overflow-y: scroll
+}
+
+.hs_item_list {
+    margin: 2px 0px
+}
+
+.flex_list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%
+}
+
+.hs_flex_item {
+    width: 25%
+}
+
+@media (min-width:768px) {
+    .hs_flex_item {
+        width: 50%
+    }
+}
+
+@media (max-width:767px) {
+    .hs_flex_item {
+        width: 100%
+    }
+}
+
+@media (min-width:992px) {
+    .hs_flex_item {
+        width: 33.33333333%
+    }
+}
+
+@media (min-width:1200px) {
+    .hs_flex_item {
+        width: 25%
+    }
+}
+
+.children_a_block>a {
+    display: block
+}
+
+@keyframes loading {
+
+    0%,
+    100% {
+        transform: rotate(0deg)
+    }
+
+    100% {
+        transform: rotate(360deg)
+    }
+}
+
+.hs_loading {
+    display: inline-block;
+    animation: loading 3s steps(12, end) infinite;
+    width: 60px;
+    height: 60px;
+    background-size: cover;
+    background-image: url(https://huiji-public.huijistatic.com/ff14/uploads/0/02/Loading.png)
+}
+
+.hs_search_filter.hs_flex_list {
+    vertical-align: middle
+}
+
+.hs_search_filter_item {
+    display: inline-block;
+    margin-right: .5em;
+    font-size: 14px;
+    vertical-align: top
+}
+
+.hs_search_filter_item_name {
+    display: inline-block;
+    margin-left: .2em
+}
+
+input#filter-name,
+input#filter-id,
+input.filter-text {
+    background: #333;
+    border: 1px solid #000;
+    padding: 4px;
+    font-size: 14px;
+    color: #fff
+}
+
+select {
+    background: #333;
+    color: #f1f1f1;
+    border: 1px solid #000;
+    padding: 4px;
+    font-size: 14px;
+    vertical-align: initial;
+    height: 30px
+}
+
+option {
+    color: #eee;
+    border: 1px solid #f0ad4e
+}
+
+button.filter-button {
+    border: 1px solid #000;
+    height: 30px;
+    vertical-align: initial
+}
+
+.submit {
+    background: #2a4b8d
+}
+
+.reset {
+    background: #923532
+}
+
+.hs_item_list_page_selector {
+    text-align: center;
+    padding: 12px
+}
+
+.hs_item_list_page_button {
+    display: initial;
+    margin: 2px;
+    border: 1px solid #111;
+    background: #2a4b8d;
+    padding: 6px
+}
+
+.hs_item_list_page_button:hover {
+    background: #4d71b7
+}
+
+.hs_item_list_page_ellipsis {
+    display: inline-block;
+    margin: 6px
+}
+
+.hs_flex_item:hover {
+    background: #2e4169
+}
+
+.hs_item_list_page_button.current {
+    background: #c17f21
+}
+
+.external_link {
+    display: inline-block;
+    margin: 6px
+}
