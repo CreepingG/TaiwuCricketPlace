@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
+type randPairs<T> = [T, number][]
 class Util{
-	static randwithWeight(pairs){
+	static randwithWeight(pairs: randPairs<any>){
 		let sum = 0;
 		pairs.forEach(pair => {
 			sum += pair[1];
@@ -13,26 +14,32 @@ class Util{
 		console.warn(rand, pairs);
 		console.trace();
 	}
-	static randInt(from, to){
+	static randInt(from: number, to: number){
 		return Math.floor(from + Math.random() * (to - from));
 	}
-	static clamp(value, min, max){
+	static clamp(value: number, min: number, max: number){
 		return Math.max(min, Math.min(max, value));
 	}
 }
+interface effect{
+    pipeline: (oldVal:number, cur:number) => number,
+    dead: (cur:number) => boolean,
+    [k:string] : any,
+}
 class AutoNumber{
-	/** @param {number} value */
-	constructor(value){
+    private _value: number
+    effects: effect[];
+	constructor(value: number){
 		this._value = value;
-		this.effect = [];
+		this.effects = [];
 	}
 	static get curTime(){
 		return Game.status.maxProgressTime - Game.status.progressTime;
 	}
-	to(toValue, duration, delay = 0){
+	to(toValue: number, duration: number, delay = 0){
 		let fromTime = AutoNumber.curTime + delay;
 		let endTime = fromTime + duration;
-		this.effect.push({
+		this.effects.push({
 			pipeline(v, cur){
 				let progress = (cur - this.fromTime) / (this.endTime - this.fromTime);
 				if (progress <= 0) return v;
@@ -49,16 +56,16 @@ class AutoNumber{
 	}
 	set value(v){
 		this._value = v;
-		this.effect = [];
+		this.effects = [];
 	}
 	/** 结算并移除已经停止变化的效果 */
 	removeDead(){
 		let cur = AutoNumber.curTime;
-		while(this.effect.length > 0){
-			let head = this.effect[0];
+		while(this.effects.length > 0){
+			let head = this.effects[0];
 			if (head.dead(cur)){
 				this._value = head.pipeline(this._value, cur);
-				this.effect.shift();
+				this.effects.shift();
 			}
 			else{
 				break;
@@ -69,10 +76,10 @@ class AutoNumber{
 		this.removeDead();
 		return this.valueAtTime(0);
 	}
-	valueAtTime(timeOffset){
+	valueAtTime(timeOffset: number){
 		let time = AutoNumber.curTime + timeOffset;
 		let v = this._value;
-		this.effect.forEach(e=>{
+		this.effects.forEach(e=>{
 			v = e.pipeline(v, time);
 		});
 		return v;
@@ -80,8 +87,14 @@ class AutoNumber{
 	/** 存在未停止的效果 */
 	get active(){
 		this.removeDead();
-		return this.effect.length > 0;
+		return this.effects.length > 0;
 	}
+}
+interface CsvDatum{
+	[k:number] : string
+}
+interface CsvData{
+	[i:number] : CsvDatum
 }
 class Resource{
 	static _imageMaps = {
@@ -89,45 +102,45 @@ class Resource{
 		net : 'GetQuquIcon-resources.assets-344.png',
 		wave : 'QuquCall-resources.assets-157.png',
 	}
-	static image = {}
+	static image:{[k:string]:HTMLImageElement} = {}
 	static _audioMaps = {
 		call : 'CricketCall-resources.assets-1097.wav',
 	}
-	static audio = {}
+	static audio:{[k:string]:HTMLAudioElement} = {}
 	static _csvMaps = {
 		cricket : 'Cricket_Date',
 		place : 'CricketPlace_Date',
 	}
-	static csv = {}
-	static loading
+	static csv:{[k:string]:CsvData} = {}
+	static loading: Promise<void[]>
 	static load(){
 		if (this.loading) return this.loading;
 
-		let li = [];
+		let li:Promise<void>[] = [];
 
-		function LoadImage(name, key){
+		function LoadImage(name: string, key: string | number){
 			const img = new Image();
 			img.src = 'resources/' + name;
 			li.push(new Promise((resolve, reject)=>{
-				img.onload = resolve;
+				img.onload = () => resolve();
 				img.onerror = reject;
 			}));
 			Resource.image[key] = img;
 		}
 		Object.entries(this._imageMaps).forEach(([k,v])=>LoadImage(v, k));
 
-		function LoadAudio(name, key){
+		function LoadAudio(name: string, key: string | number){
 			const audio = new Audio();
 			audio.src = 'resources/' + name;
 			li.push(new Promise((resolve, reject)=>{
-				audio.oncanplay = resolve;
+				audio.oncanplay = () => resolve();
 				audio.onerror = reject;
 			}));
 			Resource.audio[key] = audio;
 		}
 		Object.entries(this._audioMaps).forEach(([k,v])=>LoadAudio(v, k));
 
-		function LoadCsv(name, key){
+		function LoadCsv(name: string, key: string | number){
 			const filePath = './resources/' + name + '.txt';
 			const request = new XMLHttpRequest();
 			request.open('GET', filePath, true);
@@ -140,15 +153,15 @@ class Resource{
 				request.onerror = reject;
 			}));
 		}
-		function ParseCsv(text){
-			let data = {};
+		function ParseCsv(text: string){
+			let data:CsvData = {};
 			let lines = text.split('\n');
-			let keys = lines.shift().split(',');
-			lines.forEach(line=>{
+			let keys = (lines.shift() || '').split(',');
+			lines.forEach((line: string)=>{
 				if (line.length <= 1) return;
-				let datum = {};
-				let id;
-				line.split(',').forEach((v,i)=>{
+				let datum:{[k:number]:string} = {};
+				let id: number = -1;
+				line.split(',').forEach((v: string, i: number)=>{
 					if (i === 0) {
 						id = Number(v);
 					}
@@ -181,7 +194,12 @@ class Size{
 	}
 }
 class CanvasObj{
-	constructor(width, height, parent){
+    elem: HTMLCanvasElement;
+    width: number;
+    height: number;
+    origin: { x: number; y: number; };
+    ctx: CanvasRenderingContext2D;
+	constructor(width: number, height: number, parent?: HTMLElement){
 		height = height || width;
 		this.elem = document.createElement('canvas');
 		this.width = width;
@@ -190,39 +208,37 @@ class CanvasObj{
 		this.elem.width = width;
 		this.elem.height = height;
 		(parent || document.body).appendChild(this.elem);
-		this.ctx = this.elem.getContext('2d');
+		this.ctx = <CanvasRenderingContext2D>this.elem.getContext('2d');
 	}
-	drawDisc(color, x, y, r){
+	drawDisc(color: string, x: number, y: number, r: number){
 		this.ctx.fillStyle = color;
 		this.ctx.beginPath();
 		this.ctx.arc(x, y, r, Math.PI * 2, 0, true);
 		this.ctx.closePath();
 		this.ctx.fill();
 	}
-	drawCircle(color, x, y, r, width, rate){
+	drawCircle(color: string, x: number, y: number, r: number, width: number, rate: number){
 		this.ctx.strokeStyle = color;
 		this.ctx.lineWidth = width;
 		this.ctx.beginPath();
 		this.ctx.arc(x, y, r, Math.PI * -0.5, Math.PI * (-0.5 + 2 * rate), false);
 		this.ctx.stroke();
 	}
-	fillBackground(color){
+	fillBackground(color: string){
 		this.ctx.fillStyle = color;
 		this.ctx.fillRect(0, 0, this.width, this.height);
 	}
 }
 class Cricket{
-	/** 
-	 * @param {CricketPlace} place
-	 */
-	constructor(place){
+    place: CricketPlace;
+	constructor(place: CricketPlace){
 		this.place = place;
 	}
 	color = 0
 	part = 0
 	level = 0
 	name = ''
-	init(color, part){
+	init(color: number, part: number){
 		this.color = color;
 		this.part = part;
 		let data = Resource.csv['cricket'];
@@ -251,28 +267,30 @@ class Cricket{
 	}
 }
 class CricketCall{
-	/** 
-	 * @param {CricketPlace} place
-	 */
-	constructor(place){
+    place: CricketPlace;
+    volume: AutoNumber;
+    opacity: AutoNumber;
+    scale: AutoNumber;
+    audio!: { elem: HTMLAudioElement; ctx: AudioContext; source: MediaElementAudioSourceNode; gainNode: GainNode; };
+	constructor(place: CricketPlace){
 		this.place = place;
 		this.volume = new AutoNumber(0);
 		this.opacity = new AutoNumber(1);
 		this.scale = new AutoNumber(0);
 	}
-	setData(scale, pitch){
+	setData(scale: number, pitch: number){
 		this.scaleArg = scale;
 
 		const elem = new Audio();
-		elem.preservesPitch = false;
-		elem.mozPreservesPitch = false;
-		elem.webkitPreservesPitch = false;
+		const obj:any = elem;
+		obj.preservesPitch = false;
+		obj.mozPreservesPitch = false;
+		obj.webkitPreservesPitch = false;
 		elem.src = Resource.audio['call'].src;
 		elem.playbackRate = pitch;
 		const ctx = new window.AudioContext();
 		const source = ctx.createMediaElementSource(elem);
 		const gainNode = ctx.createGain();
-		source.loop = false;
 		source.connect(gainNode);
 		gainNode.connect(ctx.destination);
 		this.audio = {
@@ -302,7 +320,7 @@ class CricketCall{
 	/** 蛐蛐对波纹大小的影响 */
 	scaleArg = 0
 	// #endregion
-	start(duration, scale){
+	start(duration: number, scale: number){
 		if (this.scale.active || this.opacity.active) return;
 		duration *= 1000;
 		this.scale.value = 0;
@@ -323,7 +341,16 @@ class CricketCall{
 	}
 }
 class CricketPlace{
-	constructor(col, row){
+    col: number;
+    row: number;
+    origin: { x: number; y: number; };
+    shakeArgs: { startTime: number; duration: number; maxRotation: number; };
+    hover: boolean;
+    index: number;
+    cricket: Cricket;
+    call: CricketCall;
+    rotation: AutoNumber;
+	constructor(col: number, row: number){
 		this.col = col;
 		this.row = row;
 		this.origin = {
@@ -341,7 +368,7 @@ class CricketPlace{
 		this.call = new CricketCall(this);
 		this.rotation = new AutoNumber(0);
 	}
-	shake(size, power){
+	shake(size: number, power: number){
 		if (this.rotation.active) return false;
 		let duration = size * 1000;
 		let maxRotation = power / 100 * (1 + this.cricket.level / 10) * (Math.random() < 0.5 ? 1 : -1);
@@ -469,9 +496,8 @@ class CricketPlace{
 			}
 		}
 	}
-	static map = new Map()
-	/** @type {CricketPlace} */
-	static hoverPlace = null
+	static map = new Map<number, CricketPlace>()
+	static hoverPlace:CricketPlace|null = null
 	static init(){
 		CricketPlace.map.clear();
 
@@ -485,22 +511,22 @@ class CricketPlace{
 		let list = CricketPlace.values();
 		let cricketData = Resource.csv['cricket'];
 		let placeData = Resource.csv['place'];
-		let allCricket = Object.entries(cricketData);
-		let allColor = [];
-		allCricket.forEach(pair => {
+		let allCricket:[number, CsvDatum][] = Object.entries(cricketData).map(([k,v])=>[Number(k), v]);
+		let allColor:randPairs<number>[] = [];
+		allCricket.forEach((pair: [number, CsvDatum]) => {
 			let color = Number(pair[1][3]);
 			if (color === 0) return;
 			if (!allColor[color]) allColor[color] = [];
 			allColor[color].push([pair[0], Number(pair[1][6])]);
 		});
-		let allPart = allCricket.filter(pair => pair[1][4] === '1').map(pair => [pair[0], Number(pair[1][6])]);
+		let allPart:randPairs<number> = allCricket.filter(pair => pair[1][4] === '1').map(pair => [pair[0], Number(pair[1][6])]);
 		let theOne = Util.randInt(0, list.length);
 		for (let index = 0; index < list.length; index++){
 			let place = list[index];
 			let placeDatum = placeData[place.index];
 			let color = Util.randwithWeight(Array.from({length: index === theOne ? 6 : 7} /* 让天命窝不出呆物 */)
 				.map((_, i)=>[i + 1, Number(placeDatum[i + 1])]));
-			let colorId, partId;
+			let colorId: number, partId: number;
 			if (color === 7){ // 呆物
 				colorId = 0;
 				partId = 0;
@@ -540,7 +566,7 @@ class CricketPlace{
 		}
 
 	}
-	static event(event, x, y){
+	static event(event: string, x: number, y: number){
 		x /= Size.place.d;
 		y /= Size.place.d;
 		const col = Math.round(x);
@@ -568,14 +594,8 @@ class CricketPlace{
 				console.warn(event);
 		}
 	}
-	/**
-	 * @returns {Array<CricketPlace>}
-	 */
 	static values(){
 		return Array.from(CricketPlace.map.values());
-	}
-	static forEach(action){
-		CricketPlace.map.forEach(action);
 	}
 	static random(){
 		let itor = CricketPlace.map.values();
@@ -587,12 +607,9 @@ class CricketPlace{
 	}
 }
 class Game{
-	/**
-	 * @type {CanvasObj}
-	 */
-	static mainCanvas
-	static backDisc
-	static text
+	static mainCanvas: CanvasObj
+	static backDisc: { render: ()=>void; r: number; x: number; y: number; }
+	static text: HTMLDivElement
 	static stages = {
 		'init' : -1,
 		'progress' : 0,
@@ -607,7 +624,7 @@ class Game{
 		startTime : 0,
 		maxProgressTime : 31 * 1000,
 		progressTime : 0,
-		stage : this.stages.init,
+		stage : Game.stages.init,
 	}
 	static async init(){
 		await Resource.load();
@@ -625,7 +642,7 @@ class Game{
 		Game.text = document.createElement('div');
 		Game.text.style.whiteSpace = 'pre';
 		document.body.appendChild(Game.text);
-		Game.mainCanvas.elem.onclick = function(e){
+		Game.mainCanvas.elem.onclick = function(e: { offsetX: number; offsetY: number; }){
 			if (Game.status.stage !== Game.stages.progress) {
 				Game.start();
 				return;
@@ -634,7 +651,7 @@ class Game{
 			const y = e.offsetY - Game.mainCanvas.origin.y;
 			CricketPlace.event('click', x, y);
 		};
-		Game.mainCanvas.elem.onmousemove = function(e){
+		Game.mainCanvas.elem.onmousemove = function(e: { offsetX: number; offsetY: number; }){
 			if (Game.status.stage !== Game.stages.progress) return;
 			const x = e.offsetX - Game.mainCanvas.origin.x;
 			const y = e.offsetY - Game.mainCanvas.origin.y;
@@ -642,7 +659,7 @@ class Game{
 		};
 		Game.render();
 	}
-	static timer
+	static timer: number
 	static start(){
 		CricketPlace.init();
 		Game.status.progressTime = Game.status.maxProgressTime;
