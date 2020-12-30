@@ -286,7 +286,7 @@ class CricketCall{
 	/** @constant 80 */
 	static highLevel = 80
 	/** 全局音量设置 */
-	static settingVolume = 0.1
+	static settingVolume = 0.3
 	/** 最早鸣叫时间 */
 	v4 = 0
 	/** 剩余鸣叫次数 */
